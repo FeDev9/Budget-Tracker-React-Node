@@ -36,7 +36,7 @@
 
 ![Product Name Screen Shot][product-screenshot]
 
-Track your expenses and incomes with this node.js app.
+Track your expenses and incomes with this node.js / React app.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -44,12 +44,13 @@ Track your expenses and incomes with this node.js app.
 
 ### Built With
 
+* React
 * Node.js
 * * Express
 * * MySQL2
 * * bcryptjs
-* * cookie-parser
-* * jsonwebtoken
+
+
 
 
 
