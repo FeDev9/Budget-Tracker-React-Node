@@ -4,7 +4,7 @@ const router = express.Router();
 
 
 router.post('/transactions/add-transaction', controller.add);
-router.delete('/transactions/delete-transaction', controller.delete);
+router.delete('/transactions/delete-transaction/:id', controller.delete);
 router.put('/transactions/filter', controller.filter);
 router.put('/', controller.user)
 

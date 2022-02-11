@@ -53,7 +53,7 @@ const Profile = (props) => {
     const deleteTransaction = (id) => {
 
         const fetchData = async () => {
-            const results = await axios.delete(`http://localhost:3001/user/transactions/delete-transaction`, {
+            const results = await axios.delete(`http://localhost:3001/user/transactions/delete-transaction/${id}`, {
                 data: {
                     id: id,
                     userId: props.userId
