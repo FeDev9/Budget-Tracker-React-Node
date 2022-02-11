@@ -3,7 +3,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import avatar from '../public/img/avatar.png'
 import { useEffect } from 'react';
-import Filter from './Filter';
+
 
 const Profile = (props) => {
 
@@ -24,7 +24,7 @@ const Profile = (props) => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const results = await axios.post('http://localhost:3001/profile', {
+            const results = await axios.put('http://localhost:3001/user', {
                 userId: props.userId
             });
             setTransactions(results.data.transactions);
@@ -40,7 +40,7 @@ const Profile = (props) => {
     const addTransaction = (e) => {
         e.preventDefault();
         const fetchData = async () => {
-            const results = await axios.post('http://localhost:3001/transactions/add-transaction', {
+            const results = await axios.post('http://localhost:3001/user/transactions/add-transaction', {
                 userId: props.userId,
                 type: type,
                 value: value
@@ -53,7 +53,7 @@ const Profile = (props) => {
     const deleteTransaction = (id) => {
 
         const fetchData = async () => {
-            const results = await axios.delete(`http://localhost:3001/transactions/delete-transaction`, {
+            const results = await axios.delete(`http://localhost:3001/user/transactions/delete-transaction`, {
                 data: {
                     id: id,
                     userId: props.userId
@@ -67,19 +67,18 @@ const Profile = (props) => {
     const filter = (e) => {
         e.preventDefault();
         const fetchData = async () => {
-            const results = await axios.post('http://localhost:3001/transactions/filter', {
+            const results = await axios.put('http://localhost:3001/user/transactions/filter', {
+
                 dateStart: dateStart,
                 dateEnd: dateEnd,
                 userId: props.userId
+
             })
             setFilterTransactions(results.data.results);
         }
         fetchData();
     }
 
-    const logout = () => {
-
-    }
 
 
     return (
@@ -95,7 +94,7 @@ const Profile = (props) => {
                     </h5>
                     <p>In this page you can manage your budget and see the incomes and the expenses of the
                         current month.</p>
-                    <p> Clicking on the button below, you can see and filter all transactions!</p>
+                    <a href='/' className='delete'>Logout</a>
                 </div>
                 <div className="profile-page">
                     <div className="profile-header">
@@ -207,6 +206,8 @@ const Profile = (props) => {
                         )
                     })}
             </div>
+
+
         </>
     )
 }

@@ -533,3 +533,12 @@ margin: 1em;
     text-transform: uppercase;
     margin: 2rem;
 }
+
+.profile-card a {
+    border-radius: 20px;
+    padding: 1rem;
+    background-color: #f93154;
+    text-decoration: none;
+    color: white;
+    text-transform: uppercase;
+}

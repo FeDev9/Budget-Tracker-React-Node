@@ -1,13 +1,12 @@
 const express = require('express');
 const controller = require('../controllers/transactionsController');
-const { route } = require('./pages');
 const router = express.Router();
-const authController = require('../controllers/authController');
 
 
-router.post('/add-transaction', controller.add);
-router.delete('/delete-transaction', controller.delete);
-router.post('/filter', controller.filter);
+router.post('/transactions/add-transaction', controller.add);
+router.delete('/transactions/delete-transaction', controller.delete);
+router.put('/transactions/filter', controller.filter);
+router.put('/', controller.user)
 
 
 module.exports = router;

@@ -29,14 +29,11 @@ app.use(cookieParser());
 
 
 //Routes
-const pagesRoute = require('./routes/pages');
 const authRoute = require('./routes/auth');
 const transactionsRoute = require('./routes/transactions');
 
-
-app.use('/', pagesRoute);
-app.use('/auth', authRoute);
-app.use('/transactions', transactionsRoute);
+app.use('/', authRoute);
+app.use('/user', transactionsRoute);
 
 
 

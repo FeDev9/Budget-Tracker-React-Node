@@ -39,7 +39,7 @@ function App() {
 
     e.preventDefault();
 
-    const results = await axios.post('http://localhost:3001/auth/login', {
+    const results = await axios.post('http://localhost:3001/login', {
       email: logEmail,
       password: logPassword
     });
@@ -62,7 +62,7 @@ function App() {
     e.preventDefault();
 
     const fetchData = async () => {
-      const results = await axios.post('http://localhost:3001/auth/register', {
+      const results = await axios.post('http://localhost:3001/register', {
         email: regEmail,
         password: regPassword,
         name: regName,

@@ -5,7 +5,7 @@ const model = require('../models/transactionsModel');
 class TransactionsController {
 
 
-    async profile(req, res) {
+    async user(req, res) {
 
 
         if (req.body.userId !== undefined) {
