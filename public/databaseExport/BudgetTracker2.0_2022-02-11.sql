@@ -6,8 +6,8 @@
 # https://github.com/Sequel-Ace/Sequel-Ace
 #
 # Host: localhost (MySQL 5.7.34)
-# Database: BudgetTracker
-# Generation Time: 2022-01-20 09:03:23 +0000
+# Database: BudgetTracker2.0
+# Generation Time: 2022-02-11 15:08:25 +0000
 # ************************************************************
 
 
@@ -27,25 +27,22 @@ DROP TABLE IF EXISTS `transactions`;
 
 CREATE TABLE `transactions` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `userId` int(11) NOT NULL,
+  `userId` int(11) unsigned NOT NULL,
   `type` varchar(25) NOT NULL DEFAULT '',
   `value` float NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `transactions` WRITE;
 /*!40000 ALTER TABLE `transactions` DISABLE KEYS */;
 
 INSERT INTO `transactions` (`id`, `userId`, `type`, `value`, `date`)
 VALUES
-	(52,7,'Salary',2000,'2022-01-20 09:35:23'),
-	(53,7,'Rental',-500,'2022-01-20 09:36:30'),
-	(54,7,'Bills',-200,'2022-01-20 09:36:45'),
-	(55,7,'Investment',-500,'2022-01-20 09:36:56'),
-	(56,7,'Dinner',-50,'2022-01-20 09:37:07'),
-	(57,7,'Breakfast',-10,'2022-01-20 09:37:16'),
-	(58,7,'Coffee',-0.8,'2022-01-20 09:37:34');
+	(42,9,'Salary',2000,'2022-02-11 16:00:14'),
+	(44,9,'Investment',-200,'2022-02-11 16:00:31'),
+	(45,9,'Coffee',-0.98,'2022-02-11 16:00:42'),
+	(46,9,'Breakfast',-20,'2022-02-11 16:00:58');
 
 /*!40000 ALTER TABLE `transactions` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -61,15 +58,16 @@ CREATE TABLE `users` (
   `name` varchar(100) NOT NULL DEFAULT '',
   `email` varchar(100) NOT NULL DEFAULT '',
   `password` varchar(255) NOT NULL DEFAULT '',
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 
-INSERT INTO `users` (`id`, `name`, `email`, `password`)
+INSERT INTO `users` (`id`, `name`, `email`, `password`, `timestamp`)
 VALUES
-	(7,'John Doe','john@email.com','$2a$08$sDvO2BPQ/FUM2DSV217KUeLSVZMKR4sWQW5q3mgKGOd7GdZ.sgHfe');
+	(9,'John Doe','johndoe@email.com','$2a$08$itsx8B0rOQzc1ujpMAYRyugNHlod9xgv702i4kxr0TmVpW.dCWTk6','2022-02-11 15:59:47');
 
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
