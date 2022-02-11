@@ -96,6 +96,9 @@ function App() {
       <>
 
         <div className={"auth"}>
+          <h4 className={msg !== undefined ? 'msg' : ''}>
+            {msg !== undefined ? msg : ''}
+          </h4>
           <div className="login-register-cnt">
 
             {/*------LOGIN ForM--------- */}
@@ -150,9 +153,7 @@ function App() {
 
           </div>
 
-          <h4 className={msg !== undefined ? 'msg' : ''}>
-            {msg !== undefined ? msg : ''}
-          </h4>
+
 
         </div>
 
