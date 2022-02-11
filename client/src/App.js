@@ -71,9 +71,7 @@ function App() {
       if (results.data.msg && results.data.error) {
         setMsg(results.data.msg);
       } else {
-        setUserId(results.data.id);
-
-        setAuthenticated(true);
+        setMsg('User Registered')
       }
     }
     fetchData();
@@ -97,7 +95,7 @@ function App() {
 
       <>
 
-        <div className={authenticated ? "auth-hide" : "auth"}>
+        <div className={"auth"}>
           <div className="login-register-cnt">
 
             {/*------LOGIN ForM--------- */}

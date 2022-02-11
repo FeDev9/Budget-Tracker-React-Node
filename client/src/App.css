@@ -522,3 +522,14 @@ margin: 1em;
     padding: 0.5rem;
     text-align: center;
 }
+
+.deleted {
+    background-color: gray;
+    border: 5px solid black;
+}
+
+.filter-title {
+    text-align: center;
+    text-transform: uppercase;
+    margin: 2rem;
+}

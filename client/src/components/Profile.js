@@ -10,6 +10,7 @@ const Profile = (props) => {
     const [msg, setMsg] = useState(undefined);
 
     const [transactions, setTransactions] = useState([]);
+    const [filterTransactions, setFilterTransactions] = useState([]);
     const [income, setIncome] = useState(0);
     const [expense, setExpense] = useState(0);
 
@@ -17,7 +18,8 @@ const Profile = (props) => {
     const [value, setValue] = useState('');
     const [type, setType] = useState('');
 
-
+    const [dateStart, setDateStart] = useState();
+    const [dateEnd, setDateEnd] = useState();
 
 
     useEffect(() => {
@@ -29,10 +31,11 @@ const Profile = (props) => {
             setIncome(results.data.income);
             setExpense(results.data.expense);
         }
+
         fetchData();
 
 
-    }, [transactions, income, expense])
+    }, [transactions, income, expense, filterTransactions])
 
     const addTransaction = (e) => {
         e.preventDefault();
@@ -48,15 +51,36 @@ const Profile = (props) => {
     }
 
     const deleteTransaction = (id) => {
-        console.log(id, props.userId);
+
         const fetchData = async () => {
-            const results = await axios.post(`http://localhost:3001/transactions/delete-transaction/${id}`, {
-                id: id,
-                userId: props.userId
+            const results = await axios.delete(`http://localhost:3001/transactions/delete-transaction`, {
+                data: {
+                    id: id,
+                    userId: props.userId
+                },
+                headers: { Authorization: "token" }
             })
         }
         fetchData();
     }
+
+    const filter = (e) => {
+        e.preventDefault();
+        const fetchData = async () => {
+            const results = await axios.post('http://localhost:3001/transactions/filter', {
+                dateStart: dateStart,
+                dateEnd: dateEnd,
+                userId: props.userId
+            })
+            setFilterTransactions(results.data.results);
+        }
+        fetchData();
+    }
+
+    const logout = () => {
+
+    }
+
 
     return (
         <>
@@ -72,9 +96,6 @@ const Profile = (props) => {
                     <p>In this page you can manage your budget and see the incomes and the expenses of the
                         current month.</p>
                     <p> Clicking on the button below, you can see and filter all transactions!</p>
-                    <button onClick={<Filter userId={props.userId} />}>
-                        View all transactions
-                    </button>
                 </div>
                 <div className="profile-page">
                     <div className="profile-header">
@@ -83,19 +104,19 @@ const Profile = (props) => {
                             <div className="bal">
                                 <h4 className="title">Balance</h4>
                                 <p className="value">
-                                    {income + expense}
+                                    {(income + expense).toFixed(2)}
                                 </p>
                             </div>
                             <div className="inc">
                                 <h4 className="title">Incomes</h4>
                                 <p className="value">
-                                    {income}
+                                    {income.toFixed(2)}
                                 </p>
                             </div>
                             <div className="exp">
                                 <h4 className="title">Expenses</h4>
                                 <p className="value">
-                                    {expense}
+                                    {expense.toFixed(2)}
                                 </p>
                             </div>
 
@@ -144,29 +165,31 @@ const Profile = (props) => {
                 </div>
             </div>
 
-            <div class="filter-form">
-                <form action="/transactions/filter" method="POST">
+            <h2 className="filter-title">Filter Section</h2>
+            <div className="filter-form">
+                <form onSubmit={filter}>
                     <h3>Filter your transactions</h3>
                     <div>
-                        <label for="dateStart">Since:</label>
-                        <input type="date" name="dateStart" id="dateStart" required />
+                        <label htmlFor="dateStart">Since:</label>
+                        <input type="date" name="dateStart" id="dateStart" required onChange={e => setDateStart(e.target.value)} />
                     </div>
                     <div>
-                        <label for="dateEnd">Until:</label>
-                        <input type="date" name="dateEnd" id="dateEnd" required />
+                        <label htmlFor="dateEnd">Until:</label>
+                        <input type="date" name="dateEnd" id="dateEnd" required onChange={e => setDateEnd(e.target.value)} />
                     </div>
 
-                    <button type="submit">Filter</button>
+                    <button onClick={filter}>Filter</button>
                 </form>
                 <h4 className={msg !== undefined ? 'msg' : ''}>
                     {msg !== undefined ? msg : ''}
                 </h4>
             </div>
 
-            <div class="transaction">
-                <h2 className="title">All Transactions</h2>
+
+            <div className="transaction">
+
                 {
-                    transactions.map(transaction => transaction).reverse().map((transaction) => {
+                    filterTransactions.map(transaction => transaction).reverse().map((transaction) => {
                         return (
                             <div key={transaction.id} className={transaction.value < 0 ? 'single negative' : 'single positive'}>
                                 <div className="data">
@@ -180,8 +203,6 @@ const Profile = (props) => {
                                         {new Date(transaction.date).toLocaleDateString("en-US")}
                                     </p>
                                 </div>
-                                <button onClick={() => deleteTransaction(transaction.id)}
-                                    className="delete">Delete</button>
                             </div>
                         )
                     })}

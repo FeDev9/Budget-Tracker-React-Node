@@ -92,53 +92,6 @@ class AuthController {
         }
     };
 
-    async isLoggedIn(req, res, next) {
-
-        //     console.log(req);
-
-        //     if (req.cookies.jwt) {
-        //         try {
-        //             //verify token
-        //             const decoded = await promisify(jwt.verify)(
-        //                 req.cookies.jwt,
-        //                 process.env.JWT_SECRET
-        //             );
-
-        //             //Check if the user still exists
-        //             const results = await model.getUser({ id: decoded.id });
-        //             if (!results) {
-        //                 return next();
-        //             }
-
-        //             req.user = results[0];
-
-        //             return next();
-
-        //         } catch (err) {
-        //             console.log(err);
-        //             return res.redirect('/login');
-        //         }
-        //     } else {
-        //         next();
-        //     }
-
-
-
-    };
-
-    logout(req, res) {
-
-        // res.cookie('jwt', '', {
-        //     expires: new Date(
-        //         Date.now() + 2 * 1000
-        //     ),
-        //     httpOnly: true
-        // });
-
-        // res.status(200).redirect('/');
-
-    }
-
 
 }
 

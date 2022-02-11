@@ -6,8 +6,7 @@ const authController = require('../controllers/authController');
 
 
 router.post('/add-transaction', controller.add);
-router.post('/delete-transaction/:id', controller.delete);
-router.get('/all-transactions', controller.allTransactions);
+router.delete('/delete-transaction', controller.delete);
 router.post('/filter', controller.filter);
 
 

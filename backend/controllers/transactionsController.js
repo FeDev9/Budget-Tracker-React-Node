@@ -76,6 +76,8 @@ class TransactionsController {
         const idTransaction = req.body.id;
         const userId = req.body.userId;
 
+        console.log(userId, idTransaction)
+
 
         const results = await model.getUserTransaction({ id: idTransaction, userId: userId });
         console.log(results);
@@ -91,19 +93,6 @@ class TransactionsController {
         }
     };
 
-    async allTransactions(req, res) {
-
-        if (req.user != undefined) {
-
-            const results = await model.getTransactions({ userId: req.user.id });
-            res.render('all', {
-                transactions: results,
-                user: req.user
-            });
-        } else {
-            res.redirect('/');
-        }
-    };
 
     async filter(req, res) {
 
@@ -114,17 +103,15 @@ class TransactionsController {
 
 
         if (dateStart > dateEnd || dateStart == '' || dateEnd == '') {
-            res.render('all', {
-                transactions: [],
-                msg: "Input a valid type"
+            res.json({
+                'msg': "Input a valid type"
             })
         }
 
-        const results = await model.filterTransactions({ userId: req.user.id, dateStart, dateEnd });
-
-        res.render('all', {
-            transactions: results,
-            user: req.params,
+        const results = await model.filterTransactions({ userId: req.body.userId, dateStart, dateEnd });
+        console.log(results);
+        res.json({
+            results
         })
     }
 
