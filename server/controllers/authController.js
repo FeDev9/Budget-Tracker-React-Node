@@ -52,8 +52,9 @@ class AuthController {
         const { email, password } = req.body;
 
         if (!email || !password) {
-            res.json({
-                'msg': 'Please provider email and password'
+            return res.json({
+                'msg': 'Please provider email and password',
+                'error': 1
             });
         }
 
@@ -61,7 +62,7 @@ class AuthController {
 
         if (results.length == 0 || !(await bcrypt.compare(password, results[0].password))) {
 
-            res.json({
+            return res.json({
                 'msg': 'Mail or password incorrect',
                 'error': 1
             })
