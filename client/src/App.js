@@ -51,8 +51,6 @@ function App() {
       setUserName(results.data.name);
       setAuthenticated(true);
     }
-
-
   }
 
 

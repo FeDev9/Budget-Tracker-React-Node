@@ -8,6 +8,8 @@ import { useEffect } from 'react';
 const Profile = (props) => {
 
     const [msg, setMsg] = useState(undefined);
+    const [render, setRender] = useState(false);
+
 
     const [transactions, setTransactions] = useState([]);
     const [filterTransactions, setFilterTransactions] = useState([]);
@@ -27,15 +29,16 @@ const Profile = (props) => {
             const results = await axios.put('http://localhost:3001/user', {
                 userId: props.userId
             });
-            setTransactions(results.data.transactions);
+
             setIncome(results.data.income);
             setExpense(results.data.expense);
+            setTransactions(results.data.transactions);
         }
 
         fetchData();
 
 
-    }, [transactions, income, expense, filterTransactions])
+    }, [render])
 
     const addTransaction = (e) => {
         e.preventDefault();
@@ -45,8 +48,11 @@ const Profile = (props) => {
                 type: type,
                 value: value
             })
+            setRender(!render);
+
         }
         fetchData();
+
 
     }
 
@@ -60,8 +66,10 @@ const Profile = (props) => {
                 },
                 headers: { Authorization: "token" }
             })
+            setRender(!render);
         }
         fetchData();
+
     }
 
     const filter = (e) => {
@@ -75,11 +83,11 @@ const Profile = (props) => {
 
             })
             setFilterTransactions(results.data.results);
+            setRender(!render);
         }
         fetchData();
+
     }
-
-
 
     return (
         <>
