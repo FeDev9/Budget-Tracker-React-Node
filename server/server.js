@@ -14,7 +14,7 @@ app.set('view engine', 'ejs');
 
 
 //static files
-app.use(express.static('./public'));
+app.use(express.static('public'));
 
 app.use(cors());
 
@@ -29,14 +29,14 @@ app.use(cookieParser());
 
 
 //Routes
-const authRoute = require('./routes/auth');
-const transactionsRoute = require('./routes/transactions');
+const authRoute = require('./routes/Auth');
+const transactionsRoute = require('./routes/Transactions');
 
 app.use('/', authRoute);
 app.use('/user', transactionsRoute);
 
 
 
-app.listen(3001, () => {
-    console.log("server is running on port 3001");
+app.listen(process.env.PORT || 3001, () => {
+    console.log(`server is running on port ${process.env.PORT}`);
 });

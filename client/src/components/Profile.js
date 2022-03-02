@@ -26,7 +26,7 @@ const Profile = (props) => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const results = await axios.put('http://localhost:3001/user', {
+            const results = await axios.put('https://fedev9-budget-tracker-server.herokuapp.com/user', {
                 userId: props.userId
             });
 
@@ -43,7 +43,7 @@ const Profile = (props) => {
     const addTransaction = (e) => {
         e.preventDefault();
         const fetchData = async () => {
-            const results = await axios.post('http://localhost:3001/user/transactions/add-transaction', {
+            const results = await axios.post('https://fedev9-budget-tracker-server.herokuapp.com/user/transactions/add-transaction', {
                 userId: props.userId,
                 type: type,
                 value: value
@@ -59,7 +59,7 @@ const Profile = (props) => {
     const deleteTransaction = (id) => {
 
         const fetchData = async () => {
-            const results = await axios.delete(`http://localhost:3001/user/transactions/delete-transaction/${id}`, {
+            const results = await axios.delete(`https://fedev9-budget-tracker-server.herokuapp.com/user/transactions/delete-transaction/${id}`, {
                 data: {
                     id: id,
                     userId: props.userId
@@ -75,7 +75,7 @@ const Profile = (props) => {
     const filter = (e) => {
         e.preventDefault();
         const fetchData = async () => {
-            const results = await axios.put('http://localhost:3001/user/transactions/filter', {
+            const results = await axios.put('https://fedev9-budget-tracker-server.herokuapp.com/user/transactions/filter', {
 
                 dateStart: dateStart,
                 dateEnd: dateEnd,

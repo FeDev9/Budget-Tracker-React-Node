@@ -1,6 +1,6 @@
 
 import './App.css';
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import axios from 'axios'
 
 import Profile from './components/Profile'
@@ -39,7 +39,7 @@ function App() {
 
     e.preventDefault();
 
-    const results = await axios.post('http://localhost:3001/login', {
+    const results = await axios.post('https://fedev9-budget-tracker-server.herokuapp.com/login', {
       email: logEmail,
       password: logPassword
     });
@@ -60,7 +60,7 @@ function App() {
     e.preventDefault();
 
     const fetchData = async () => {
-      const results = await axios.post('http://localhost:3001/register', {
+      const results = await axios.post('https://fedev9-budget-tracker-server.herokuapp.com/register', {
         email: regEmail,
         password: regPassword,
         name: regName,
@@ -77,12 +77,6 @@ function App() {
 
   }
 
-  const logout = async () => {
-
-    setAuthenticated(false);
-    setUserId(undefined);
-
-  }
 
   if (authenticated) {
     return <Profile userId={userId} name={userName} />
