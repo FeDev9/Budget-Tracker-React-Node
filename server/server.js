@@ -37,6 +37,6 @@ app.use('/user', transactionsRoute);
 
 
 
-app.listen(process.env.PORT || 3001, () => {
+app.listen(3005, () => {
     console.log(`server is running on port ${process.env.PORT}`);
 });

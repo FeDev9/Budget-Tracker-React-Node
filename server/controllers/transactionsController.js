@@ -12,21 +12,44 @@ class TransactionsController {
             var income;
             var expense;
 
-            const incomeResults = await model.getIncome({ userId: req.body.userId });
-            if (!incomeResults[0]["sum(value)"]) {
-                income = 0;
-            }
-            else {
-                income = incomeResults[0]["sum(value)"];
-            }
+            Promise.all([
+                model.getIncome({ userId: req.body.userId }),
+                model.getExpense({ userId: req.body.userId }),
 
-            const expenseResults = await model.getExpense({ userId: req.body.userId })
-            if (!expenseResults[0]["sum(value)"]) {
-                expense = 0;
-            }
-            else {
-                expense = expenseResults[0]["sum(value)"];
-            }
+            ]).then(results => {
+
+                if (!results[0][0]["sum(value)"]) {
+                    income = 0;
+                }
+                else {
+                    income = results[0][0]["sum(value)"];
+                }
+
+                if (!results[1][0]["sum(value)"]) {
+                    expense = 0;
+                }
+                else {
+                    expense = results[1][0]["sum(value)"];
+                }
+
+
+            })
+
+            // const incomeResults = await model.getIncome({ userId: req.body.userId });
+            // if (!incomeResults[0]["sum(value)"]) {
+            //     income = 0;
+            // }
+            // else {
+            //     income = incomeResults[0]["sum(value)"];
+            // }
+
+            // const expenseResults = await model.getExpense({ userId: req.body.userId })
+            // if (!expenseResults[0]["sum(value)"]) {
+            //     expense = 0;
+            // }
+            // else {
+            //     expense = expenseResults[0]["sum(value)"];
+            // }
 
             const results = await model.getTransactions({ userId: req.body.userId });
             res.json({

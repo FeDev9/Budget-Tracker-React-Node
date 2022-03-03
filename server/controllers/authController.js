@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const { promisify } = require('util');
 const model = require('../models/authModel');
+const { promise } = require('../database');
 
 
 
@@ -18,19 +19,19 @@ class AuthController {
                 "msg": "please fill the inputs",
                 "error": 1
             })
+        } else if (password !== passwordConfirm) {
+            return res.json({
+                'msg': "Password don't match",
+                'error': 1
+            })
         }
+
 
         const results = await model.getEmail({ email });
 
         if (results.length > 0) {
             return res.json({
                 'msg': 'User alredy exists',
-                'error': 1
-            })
-        }
-        else if (password !== passwordConfirm) {
-            return res.json({
-                'msg': "Password don't match",
                 'error': 1
             })
         }
@@ -44,6 +45,8 @@ class AuthController {
             'error': 0,
             'id': user.insertId
         })
+
+
 
     };
 
